@@ -12,13 +12,21 @@
             <a href="#home" class="logo">
                 <img src="download.png" alt="Logo">
             </a>
-            <div class="a-links">
-                <a href="#home" class="active">Home</a>
-                <a href="#about">About</a>
-                <a href="#skill">Skill</a>
-                <a href="#project">Projects</a>
-                <a href="#contact">Contact</a>
+            
+            <!-- Hamburger menu button -->
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
             </div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skill" class="nav-link">Skill</a>
+                <a href="#project" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+
             <button id="theme-switch">
                 <img src="light.png" alt="Theme Toggle">
             </button>
@@ -30,7 +38,6 @@
         <section id="home">
             <div class="home-container">
                 <div class="profile-frame">
-                    <div class="accent" aria-hidden="true"></div>
                     <img src="image1.jpg" alt="Profile photo">
                 </div>
             </div>
@@ -70,9 +77,8 @@
                     </div>
                 </div>
 
-                <div class="design-photo">
+                <div class="design-photo1">
                     <img src="about-img1.png" alt="About">
-                </div>
             </div>
 
             <div class="about-container">
@@ -93,8 +99,6 @@
                         <ul>
                             <li>Drawing</li>
                             <li>Painting</li>
-                            <li>Coding</li>
-                            <li>Gaming</li>
                             <li>Crochet</li>
                         </ul>
                     </div>
@@ -129,8 +133,6 @@
                 <h1>Projects</h1>
                 <div class="projects">
                     <img src="project1.jpg" alt="Project 1" class="image">
-                    <img src="project2.jpg" alt="Project 2" class="image">
-                    <img src="project3.jpg" alt="Project 3" class="image">
                 </div>
                 <div class="info-project">
                     <h2>BMI Calculator</h2>
@@ -160,16 +162,6 @@
                         <input type="email" placeholder="Your Email" required>
                         <textarea placeholder="Your Message" required></textarea>
                         <button type="submit">Submit</button>
-
-                        <div class="othercontact">
-                            <p>Email: <a href="mailto:pegueraaexel13@gmail.com" class="email">pegueraaexel13@gmail.com</a></p>
-                            <a href="https://web.facebook.com/aexel.peguera">
-                                <img src="facebook.png" alt="Facebook">
-                            </a>
-                            <a href="#">
-                                <img src="github.png" alt="GitHub">
-                            </a>
-                        </div>
                     </form>
 
                     <img src="download (3).png" alt="Contact">
@@ -177,6 +169,17 @@
             </div>
         </section>
     </main>
+    <footer>
+       <div class="othercontact">
+            <p>Email: <a href="mailto:pegueraaexel13@gmail.com" class="email">pegueraaexel13@gmail.com</a></p>
+            <a href="https://web.facebook.com/aexel.peguera">
+                <img src="facebook.png" alt="Facebook">
+            </a>
+            <a href="#">
+                <img src="github.png" alt="GitHub">
+            </a>
+        </div>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
