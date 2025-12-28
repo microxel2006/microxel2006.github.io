@@ -248,7 +248,6 @@ main{
     align-items: center;
     padding: 3rem 0;
     justify-content: center;
-    border: 1px solid;
 }
 .home-container{
     max-width:1200px;
@@ -285,7 +284,7 @@ main{
     position: relative;
     z-index: 2;
     cursor: pointer;
-    box-shadow: -30px 20px 2px rgba(16, 76, 24, 0.966);
+    box-shadow: -30px 20px 2px rgba(184, 255, 194, 0.966);
 }
 
 
@@ -385,7 +384,6 @@ main{
 #about{
     padding-top: 120px;
     text-align: center;
-    border: 1px solid;
 }
 
 .education-container{
@@ -468,7 +466,7 @@ main{
     }
     .hobbies{
         display: flex;
-        flex-direction: column;
+        flex-direction: column;     
         align-items:flex-start;
         gap: 1rem;
         margin-top: 1rem;
@@ -508,7 +506,6 @@ main{
 #skills{
     padding-top: 120px;
     overflow: hidden;
-    border: 1px solid red;
 }
 .skill-container{
     padding: 3rem 0;
@@ -549,7 +546,6 @@ main{
 
 #projects{
     padding-top: 120px;
-    border: 1px solid;
 }
 
 .project-container{
@@ -564,7 +560,6 @@ main{
 }
 .projects{
     height: 50vh;
-    border: 1px solid red;
     display: flex;
     align-items: center;
 }
@@ -600,7 +595,6 @@ main{
 
 #contact{
     padding-top: 50px;  
-    border: 1px solid;
     overflow: hidden;
     
 }
@@ -648,8 +642,8 @@ main{
 }
 
 .form-container button{
-    width: 10vw;
-    padding: 5px;
+    width: 120px;
+    height: 50px;
     text-align: center;
     border-radius: 20px;
     background-color: rgba(114, 164, 91, 0.664);
@@ -657,8 +651,8 @@ main{
 }
 
 .form-container img{
-    height: 30vh;
-    width: 15vw;
+    height: 150px;
+    width: 150px;
 }
 .othercontact{
     display: flex;
