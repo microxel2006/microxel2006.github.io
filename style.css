@@ -555,7 +555,6 @@ main{
     gap: 1rem;
     justify-content: center;
     align-items: center;
-    border: 1px solid;
 
 }
 .projects{
@@ -654,20 +653,21 @@ main{
     height: 150px;
     width: 150px;
 }
+
+footer{
+    background: var(--bg-color);
+     box-shadow: 0 2px 10px ;
+}
 .othercontact{
     display: flex;
     flex-direction: row;
     gap: 1rem;
     align-items: center;
     justify-content: center;
-    padding: 2rem;;
+    padding: 5px;
     border-radius: 10px;
 }
 .othercontact img{
-    height: 50px;
-    width: 50px;
-}
-.email{
-    text-decoration: underline;
-    color: var(--text);
+    height: 40px;
+    width: 40px;
 }
