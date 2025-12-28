@@ -303,13 +303,11 @@ main {
 
 /* make the circular frame responsive and keep aspect ratio so it fits on the same home row */
 .profile-frame {
-    position: relative;
+    perspective: 1000px;
     width: 100%;
     height: auto;
     max-width: 420px;
     aspect-ratio: 1 / 1;
-    /* preserve square so border-radius:50% stays circular */
-    display: inline-block;
 }
 
 .profile-frame img {
@@ -318,10 +316,10 @@ main {
     object-fit: cover;
     border-radius: 50%;
     display: block;
-    position: relative;
     z-index: 2;
     cursor: pointer;
-    box-shadow: var(--image-shadow);
+    transition: transform 0.1s ease-out;
+    transform-style: preserve-3d;
 }
 
 .info-home {

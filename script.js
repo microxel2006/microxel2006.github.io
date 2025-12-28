@@ -38,3 +38,28 @@ if (contactForm) {
         contactForm.reset();
     });
 }
+const img = document.querySelector('.profile-frame img');
+
+img.addEventListener('mousemove', (e) => {
+    const rect = img.getBoundingClientRect();
+    const x = e.clientX - rect.left; // cursor X inside image
+    const y = e.clientY - rect.top;  // cursor Y inside image
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = ((y - centerY) / centerY) * 10; // max 10deg
+    const rotateY = ((x - centerX) / centerX) * 10;
+
+    // Dynamic shadow offset
+    const shadowX = ((x - centerX) / centerX) * 20; // shadow moves opposite X
+    const shadowY = ((y - centerY) / centerY) * 20; // shadow moves opposite Y
+
+    img.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+    img.style.boxShadow = `${-shadowX}px ${-shadowY}px 30px rgba(88, 238, 158, 0.66), 0 0 15px rgba(162, 230, 164, 0.94)`;
+});
+
+img.addEventListener('mouseleave', () => {
+    img.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+    img.style.boxShadow = '-30px 10px 20px rgba(166, 244, 175, 1)';
+});
