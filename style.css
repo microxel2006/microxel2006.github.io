@@ -85,20 +85,22 @@
 :root{
     --bg-color: #e5ede5;
     --text:#3A2E2E; 
+    --header-bg:#bcffd2b1;
     --animated-text-color: rgb(0, 0, 0);
     --animated-text-shadow: 4px 2px rgba(60, 127, 67, 0.705);
     --bordercolor:rgba(151, 243, 114, 0.714);
     --about-h1:#817979;
     --hobbies-text:rgb(35, 31, 27);
     --contactbg:rgb(206, 248, 188);
-    --bsh-color: -5px 4px 2px rgba(16, 76, 24, 0.966);
+    --bsh-color: -5px 4px 2px rgb(147, 218, 156);
     --a-bg:rgb(155, 240, 185);
-    --image-shadow:-30px 20px 2px rgb(246, 249, 158);
+    --image-shadow:-30px 20px 3px #c1f0a6;
 }
 
 .dark{
     --bg-color: #162210;
     --text:#EAFFDB; 
+    --header-bg:#24573bb9;
     --animated-text-color: rgb(205, 240, 192);
     --animated-text-shadow: 5px 2px rgba(19, 36, 21, 0.705);
     --bordercolor:rgb(74, 255, 129) ;
@@ -107,7 +109,7 @@
     --contactbg:rgb(138, 187, 138);
     --bsh-color: -4px 4px 5px rgba(0, 255, 119, 0.966);
     --a-bg:rgb(36, 255, 113);
-    --image-shadow:-30px 20px 2px rgba(200, 200, 191, 0.966);
+    --image-shadow:-30px 20px 3px hwb(91 58% 0% / 0.966);
 }
 html{
     scroll-behavior: smooth;
@@ -129,8 +131,8 @@ header{
     top: 0;
     left: 0;
     width: 100%;
-    background: var(--bg-color);
-    backdrop-filter: blur(10px);
+    background: var(--header-bg);
+    backdrop-filter: blur(20px);
     box-shadow: 0 2px 10px ;
     z-index: 1000;
     padding: 1rem 5%;
@@ -292,8 +294,6 @@ main{
     cursor: pointer;
     box-shadow: var(--image-shadow);
 }
-
-
 .info-home {
     flex: 1 1 60%;
     max-width: 720px;
