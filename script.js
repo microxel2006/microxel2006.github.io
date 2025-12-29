@@ -1,5 +1,7 @@
+// Disable transitions during load
 document.documentElement.classList.add("disable-transitions");
 
+// Theme toggle
 const themeBtn = document.getElementById("theme-switch");
 const themeImg = themeBtn ? themeBtn.querySelector("img") : null;
 
@@ -23,72 +25,103 @@ if (themeBtn) {
     });
 }
 
+// Hamburger menu
 const hamburger = document.querySelector(".hamburger");
 const navLinks = document.querySelector(".nav-links");
 
-        
-hamburger.addEventListener("click", () => {
-  navLinks.classList.toggle("active");   // show/hide menu
-  hamburger.classList.toggle("active");  // change icon to X
-});
+if (hamburger && navLinks) {
+    hamburger.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+        hamburger.classList.toggle("active");
+    });
+}
 
-
+// Profile image hover effect
 const img = document.querySelector('.profile-frame img');
 
-img.addEventListener('mousemove', (e) => {
-    const rect = img.getBoundingClientRect();
-    const x = e.clientX - rect.left; // cursor X inside image
-    const y = e.clientY - rect.top;  // cursor Y inside image
+if (img) {
+    img.addEventListener('mousemove', (e) => {
+        const rect = img.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
 
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
 
-    const rotateX = ((y - centerY) / centerY) * 10; // max 10deg
-    const rotateY = ((x - centerX) / centerX) * 10;
+        const rotateX = ((y - centerY) / centerY) * 10;
+        const rotateY = ((x - centerX) / centerX) * 10;
 
-    // Dynamic shadow offset
-    const shadowX = ((x - centerX) / centerX) * 20; // shadow moves opposite X
-    const shadowY = ((y - centerY) / centerY) * 20; // shadow moves opposite Y
+        const shadowX = ((x - centerX) / centerX) * 20;
+        const shadowY = ((y - centerY) / centerY) * 20;
 
-    img.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-    img.style.boxShadow = `${-shadowX}px ${-shadowY}px 30px rgba(88, 238, 158, 0.66), 0 0 15px rgba(162, 230, 164, 0.94)`;
-});
+        img.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+        img.style.boxShadow = `${-shadowX}px ${-shadowY}px 30px rgba(88, 238, 158, 0.66), 0 0 15px rgba(162, 230, 164, 0.94)`;
+    });
 
-img.addEventListener('mouseleave', () => {
-    img.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
-    img.style.boxShadow = '-30px 10px 20px rgba(166, 244, 175, 1)';
-});
+    img.addEventListener('mouseleave', () => {
+        img.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+        img.style.boxShadow = '-30px 10px 20px rgba(166, 244, 175, 1)';
+    });
+}
 
-const contactForm = document.getElementById("contactForm");
+// Thank-you modal close behavior
+const thankYouModal = document.getElementById('thankYouModal');
+const thankYouBtn = document.querySelector('.simple-modal-btn');
+
+if (thankYouBtn) {
+    thankYouBtn.addEventListener('click', () => {
+        thankYouModal.classList.remove('active');
+    });
+}
+
+if (thankYouModal) {
+    thankYouModal.addEventListener('click', (e) => {
+        if (e.target === thankYouModal) thankYouModal.classList.remove('active');
+    });
+}
+
+// Contact Form Submission to Formspree
+const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
-    contactForm.addEventListener("submit", async (e) => {
+    contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const submitBtn = contactForm.querySelector("button[type='submit']");
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Sending...";
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        if (submitBtn) submitBtn.disabled = true;
+
+        // Replace with your actual Formspree endpoint
+        // Get it from https://formspree.io after creating a form
+        const formspreeEndpoint = "https://formspree.io/f/mvzovlgv"; // ← CHANGE THIS!
+
+        const formData = new FormData(contactForm);
+
+        // Optional: Add honeypot for basic spam protection
+        // <input type="text" name="_gotcha" style="display:none" /> in HTML
 
         try {
-            const response = await fetch(contactForm.action, {
-                method: "POST",
-                body: new FormData(contactForm),
-                headers: {
-                    "Accept": "application/json"
-                }
+            const res = await fetch(formspreeEndpoint, {
+                method: 'POST',
+                headers: { 'Accept': 'application/json' },
+                body: formData
             });
 
-            if (response.ok) {
-                alert("Message sent successfully. Thank you!");
+            if (res.ok) {
+                // Show thank-you modal
+                if (thankYouModal) thankYouModal.classList.add('active');
                 contactForm.reset();
             } else {
-                alert("Message failed to send. Please try again.");
+                let errMsg = 'Submission failed. Please try again.';
+                try {
+                    const data = await res.json();
+                    if (data && data.error) errMsg = data.error;
+                } catch {}
+                alert(errMsg);
             }
-        } catch (error) {
-            alert("Network error. Please check your internet connection.");
+        } catch (err) {
+            alert('Network error. Please check your connection and try again.');
         } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Submit";
+            if (submitBtn) submitBtn.disabled = false;
         }
     });
 }

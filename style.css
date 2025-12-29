@@ -786,3 +786,60 @@ footer {
 footer{
     text-align: center;
 }
+
+/* Thank-you popup bar shown after form submit (no redirect) */
+.thank-you-popup {
+    position: fixed;
+    left: 50%;
+    bottom: 22px;
+    transform: translateX(-50%);
+    background: var(--a-bg);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    z-index: 2000;
+    display: none;
+    font-weight: 700;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.thank-you-popup.show {
+    display: block;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Simple modal used for AJAX submit feedback */
+.simple-modal {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: rgba(0,0,0,0.45);
+    z-index: 3000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+.simple-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+.simple-modal-content {
+    background: var(--bg-color);
+    color: var(--text);
+    padding: 1.25rem 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    min-width: 280px;
+    text-align: center;
+}
+.simple-modal .simple-modal-btn {
+    margin-top: 0.75rem;
+    padding: 8px 14px;
+    border: none;
+    background: var(--a-bg);
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+}

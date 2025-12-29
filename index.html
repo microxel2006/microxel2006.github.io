@@ -153,11 +153,9 @@
         <section id="contact">
             <div class="contact-container">
                 <h1>Contact Me</h1>
-
                 <div class="form-container">
-                    <form id="contactForm"
-                        action="https://formsubmit.co/pegueraaexel13@gmail.com"
-                        method="POST">
+                    <form id="contactForm" action="https://formspree.io/f/mvzovlgv" method="POST">
+                        <!-- your fields stay the same -->
                         <input type="text" name="name" placeholder="Your Name" required>
                         <input type="email" name="email" placeholder="Your Email" required>
                         <textarea name="message" placeholder="Your Message" required></textarea>
@@ -168,6 +166,14 @@
             </div>
         </section>
     </main>
+    <div id="thankYouPopup" class="thank-you-popup" aria-live="polite">Thanks — message received!</div>
+    <!-- Simple thank-you modal for AJAX form submissions -->
+    <div id="thankYouModal" class="simple-modal" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="simple-modal-content">
+            <p>Thanks — message received!</p>
+            <button class="simple-modal-btn">Close</button>
+        </div>
+    </div>
     <footer>
         <p>&copy; 2025 Aexel Peguera. All rights reserved.</p>
        <div class="othercontact">
