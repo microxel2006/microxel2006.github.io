@@ -11,7 +11,6 @@ html {
 body {
     font-family: 'segoe ui', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    scroll-behavior: smooth;
     color: var(--text);
     background: var(--bg-color);
 }
@@ -36,35 +35,38 @@ header,
     transform 0.8s ease-in-out;
 }
 
-
 :root {
-    --bg-color: #e5ede5;
-    --text: #3A2E2E;
-    --header-bg: #c4edd2b1;
-    --animated-text-color: rgb(0, 0, 0);
+    --bg-color: #e5ede5;                  /* soft light green background */
+    --text: #373a2e;                      
+    --header-bg: #c4edd2b1;               
+    --animated-text-color: rgb(0, 0, 0);  
     --animated-text-shadow: 4px 2px rgba(60, 127, 67, 0.705);
-    --bordercolor: rgba(151, 243, 114, 0.714);
-    --about-h1: #817979;
-    --hobbies-text: rgb(35, 31, 27);
-    --contactbg: rgb(206, 248, 188);
-    --bsh-color: -5px 4px 2px rgb(147, 218, 156);
-    --a-bg: rgb(155, 240, 185);
-    --image-shadow: -30px 20px 3px #bce4ae;
+    --bordercolor: rgba(102, 187, 106, 0.7); /* moderate light green */
+    --about-h1: #817979;                  
+    --hobbies-text: rgb(35, 31, 27);      
+    --contactbg: rgb(200, 230, 201);        /* subtle light green for inputs/cards */
+    --bsh-color: -5px 4px 2px rgba(102, 187, 106, 0.7); /* light green shadow */
+    --a-bg: rgb(129, 199, 132);            /* soft green button background */
+    --image-shadow: -30px 20px 3px rgba(102, 187, 106, 0.5); /* light green shadow */
+    --form-bg:rgb(82, 173, 82);
 }
+
 .dark {
-    --bg-color: #162210;
-    --text: #EAFFDB;
-    --header-bg: #24573bb9;
+    --bg-color: #0a0f07;                  
+    --text: #EAFFDB;                      
+    --header-bg: #24573bb9;               
     --animated-text-color: rgb(205, 240, 192);
     --animated-text-shadow: 5px 2px rgba(19, 36, 21, 0.705);
-    --bordercolor: rgb(74, 255, 129);
-    --about-h1: #e9f0cd;
-    --hobbies-text: rgb(8, 96, 39);
-    --contactbg: rgb(138, 187, 138);
-    --bsh-color: -4px 4px 5px rgba(0, 255, 119, 0.966);
-    --a-bg: rgb(36, 255, 113);
-    --image-shadow: -30px 20px 3px hwb(91 58% 0% / 0.966);
+    --bordercolor: rgba(56, 142, 60, 0.7);  /* darker green for borders */
+    --about-h1: #e9f0cd;                  
+    --hobbies-text: rgb(8, 96, 39);       
+    --contactbg: rgb(27, 94, 32);           /* dark green background for inputs/cards */
+    --bsh-color: -4px 4px 5px rgba(56, 142, 60, 0.7); /* dark green shadow */
+    --a-bg: rgb(46, 125, 50);               /* dark green button background */
+    --image-shadow: -30px 20px 3px rgba(56, 142, 60, 0.5); /* dark green shadow */
+    --form-bg:rgba(129, 235, 129, 0.792);
 }
+
 
 a,
 button,
@@ -295,6 +297,15 @@ nav {
     border-radius: 5px;
 }
 
+.hamburger.active .bar:nth-child(1) {
+  transform: rotate(50deg) translate(2px, 2px);
+}
+
+
+.hamburger.active .bar:nth-child(2) {
+  transform: rotate(-50deg) translate(5px, -5px);
+}
+
 
 
 #home {
@@ -376,9 +387,7 @@ nav {
     padding: 0.5rem 1rem;
 }
 
-.animated-text {
-    font-size: 1.2rem;
-}
+
 
 .animated-text span {
     position: relative;
@@ -387,7 +396,7 @@ nav {
     overflow: hidden;
     white-space: nowrap;
     vertical-align: bottom;
-    font-weight:400;
+    font-weight:bold;
     color: var(--animated-text-color);
     text-shadow: var(--animated-text-shadow);
 }
@@ -715,7 +724,7 @@ nav {
     gap: 3rem;
     width: inherit;
     align-items: start;
-    background-color: rgba(136, 230, 92, 0.614);
+    background-color: var(--form-bg);
     padding: 2rem;
     border-radius: 10px;
 }
@@ -726,7 +735,7 @@ nav {
     padding: 0.75rem 1rem;
     width: 30vw;
     border-radius: 8px;
-    background: var(--contactbg);
+    background:rgba(176, 226, 176, 0.962);
     font-size: 1rem;
 }
 
@@ -735,7 +744,7 @@ nav {
     height: 50px;
     text-align: center;
     border-radius: 20px;
-    background-color: rgba(114, 164, 91, 0.664);
+    background-color: rgb(117, 197, 117);
     border: 1px solid var(--bordercolor);
 }
 
