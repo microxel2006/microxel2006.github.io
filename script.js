@@ -90,14 +90,9 @@ if (contactForm) {
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         if (submitBtn) submitBtn.disabled = true;
 
-        // Replace with your actual Formspree endpoint
-        // Get it from https://formspree.io after creating a form
-        const formspreeEndpoint = "https://formspree.io/f/mvzovlgv"; // ← CHANGE THIS!
+        const formspreeEndpoint = "https://formspree.io/f/mvzovlgv";
 
         const formData = new FormData(contactForm);
-
-        // Optional: Add honeypot for basic spam protection
-        // <input type="text" name="_gotcha" style="display:none" /> in HTML
 
         try {
             const res = await fetch(formspreeEndpoint, {
@@ -107,7 +102,6 @@ if (contactForm) {
             });
 
             if (res.ok) {
-                // Show thank-you modal
                 if (thankYouModal) thankYouModal.classList.add('active');
                 contactForm.reset();
             } else {
@@ -125,3 +119,177 @@ if (contactForm) {
         }
     });
 }
+
+// Star follows cursor on hover for multiple elements
+(() => {
+    // List of all elements where you want the star to follow the cursor
+    const interactiveElements = document.querySelectorAll(
+        '.skill-box, .info-home, .info-about, .education-box, .info-project'
+    );
+
+    if (!interactiveElements.length) return;
+
+    interactiveElements.forEach(el => {
+        let star = null;
+
+        el.addEventListener('mousemove', (e) => {
+            const rect = el.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            if (!star) {
+                star = document.createElement('span');
+                star.className = 'click-star';
+                const core = document.createElement('span');
+                core.className = 'star-core';
+                star.appendChild(core);
+                el.appendChild(star);
+            }
+
+            star.style.left = `${x}px`;
+            star.style.top = `${y}px`;
+            star.style.opacity = '1';
+            star.style.transform = 'translate(-50%, -50%) scale(1) rotate(0deg)';
+        });
+
+        el.addEventListener('mouseleave', () => {
+            if (star) {
+                star.style.opacity = '0';
+                setTimeout(() => {
+                    if (star && star.parentNode) {
+                        star.parentNode.removeChild(star);
+                        star = null;
+                    }
+                }, 400);
+            }
+        });
+    });
+})();
+
+// Click-star for hobbies list items (kept as click)
+(() => {
+    const hobbyItems = document.querySelectorAll('.hobbies li');
+    if (!hobbyItems.length) return;
+
+    hobbyItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            const rect = item.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const star = document.createElement('span');
+            star.className = 'click-star';
+            const core = document.createElement('span');
+            core.className = 'star-core';
+            star.appendChild(core);
+
+            star.style.left = x + 'px';
+            star.style.top = y + 'px';
+
+            item.appendChild(star);
+
+            star.addEventListener('animationend', () => {
+                if (star && star.parentNode) star.parentNode.removeChild(star);
+            }, { once: true });
+        });
+    });
+})();
+
+// Click-star for general buttons (kept as click)
+(() => {
+    const buttons = document.querySelectorAll('button');
+    if (!buttons.length) return;
+
+    buttons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            if (typeof e.clientX !== 'number') return;
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const star = document.createElement('span');
+            star.className = 'click-star';
+            const core = document.createElement('span');
+            core.className = 'star-core';
+            star.appendChild(core);
+
+            star.style.left = x + 'px';
+            star.style.top = y + 'px';
+
+            btn.appendChild(star);
+
+            star.addEventListener('animationend', () => {
+                if (star && star.parentNode) star.parentNode.removeChild(star);
+            }, { once: true });
+        });
+    });
+})();
+
+// Restart animations when elements scroll into view
+(() => {
+    const opts = { threshold: 0.3 };
+
+    function restartClass(el, cls, keepMs = 1800) {
+        if (!el) return;
+        el.classList.remove(cls);
+        el.offsetWidth; // force reflow
+        el.classList.add(cls);
+        if (keepMs > 0) {
+            setTimeout(() => el.classList.remove(cls), keepMs);
+        }
+    }
+
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                if (el.matches('.project-img')) {
+                    restartClass(el, 'enter', 1600);
+                }
+                if (el.matches('.info-about')) {
+                    restartClass(el, 'in-view', 4200);
+                }
+            }
+        });
+    }, opts);
+
+    const proj = document.querySelector('.project-img');
+    const about = document.querySelector('.info-about');
+    if (proj) io.observe(proj);
+    if (about) io.observe(about);
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', () => {
+            const href = a.getAttribute('href');
+            if (!href || href === '#') return;
+            const target = document.querySelector(href);
+            if (!target) return;
+            setTimeout(() => {
+                const p = target.querySelector('.project-img');
+                const info = target.querySelector('.info-about') || document.querySelector('.info-about');
+                if (p) restartClass(p, 'enter', 1600);
+                if (info) restartClass(info, 'in-view', 4200);
+            }, 300);
+        });
+    });
+})();
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const target = document.querySelector(targetId);
+
+        if (target) {
+            const headerOffset = 100;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+});

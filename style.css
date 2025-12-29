@@ -40,7 +40,7 @@ header,
     --text: #373a2e;                      
     --header-bg: #c4edd2b1;               
     --animated-text-color: rgb(0, 0, 0);  
-    --animated-text-shadow: 4px 2px rgba(60, 127, 67, 0.705);
+    --animated-text-shadow: 4px 2px rgba(86, 122, 89, 0.273);
     --bordercolor: rgba(102, 187, 106, 0.7); /* moderate light green */
     --about-h1: #817979;                  
     --hobbies-text: rgb(35, 31, 27);      
@@ -48,7 +48,10 @@ header,
     --bsh-color: -5px 4px 2px rgba(102, 187, 106, 0.7); /* light green shadow */
     --a-bg: rgb(129, 199, 132);            /* soft green button background */
     --image-shadow: -30px 20px 3px rgba(102, 187, 106, 0.5); /* light green shadow */
-    --form-bg:rgb(82, 173, 82);
+    --form-bg:rgba(193, 229, 193, 0.205);
+    --star-color: #ffd77a; /* soft yellow */
+    --star-glow: rgba(255,215,90,0.9);
+    --filter-img: brightness(0) invert(0);
 }
 
 .dark {
@@ -56,7 +59,7 @@ header,
     --text: #EAFFDB;                      
     --header-bg: #24573bb9;               
     --animated-text-color: rgb(205, 240, 192);
-    --animated-text-shadow: 5px 2px rgba(19, 36, 21, 0.705);
+    --animated-text-shadow: 5px 2px rgba(207, 232, 209, 0.288);
     --bordercolor: rgba(56, 142, 60, 0.7);  /* darker green for borders */
     --about-h1: #e9f0cd;                  
     --hobbies-text: rgb(8, 96, 39);       
@@ -64,7 +67,11 @@ header,
     --bsh-color: -4px 4px 5px rgba(56, 142, 60, 0.7); /* dark green shadow */
     --a-bg: rgb(46, 125, 50);               /* dark green button background */
     --image-shadow: -30px 20px 3px rgba(56, 142, 60, 0.5); /* dark green shadow */
-    --form-bg:rgba(129, 235, 129, 0.792);
+    --form-bg:rgba(129, 235, 129, 0.268);
+    /* star colors for dark mode */
+    --star-color: #fff6c2; /* pale warm */
+    --star-glow: rgba(255,245,180,0.9);
+    --filter-img: brightness(0) invert(1);
 }
 
 
@@ -119,18 +126,32 @@ button,
         margin-bottom: 2px;
     }
 
-    .education-box,
     .skill-box {
         width: 80vw;
         height: auto;
         margin: 1rem 0;
     }
 
-    .education-container {
-        display: flex;
-        flex-direction: row;
-        gap: 2rem;
-    }
+    .education-box {
+            width: 90vw;               /* Almost full width on mobile */
+            max-width: 400px;          /* Prevent it from getting too wide */
+            padding: 1.5rem;           /* Slightly less padding */
+            margin: 1rem auto;         /* Center it */
+            overflow: hidden;          /* Prevent content overflow */
+        }
+
+        .education-container {
+            flex-direction: column;    /* Stack boxes vertically */
+            gap: 2rem;
+            align-items: center;
+        }
+
+        /* Ensure images inside don't overflow */
+        .design-photo1 img {
+            width: 90vw;
+            height: auto;
+            max-height: 50vh;
+        }
 
     .about-container {
         flex-direction: column;
@@ -162,11 +183,6 @@ button,
     }
 }
 
-
-
-section {
-    scroll-margin-top: calc(20vh - 20px);
-}
 
 main {
     padding-top: 100px;
@@ -228,6 +244,12 @@ nav {
 
 #theme-switch:hover img {
     transform: scale(1.05);
+}
+
+/* allow all buttons to contain the temporary click star */
+button {
+    position: relative;
+    overflow: hidden;
 }
 
 @media (max-width: 600px) {
@@ -356,7 +378,7 @@ nav {
     max-width: 750px;
     min-width: 280px;
     height: auto;
-    background: rgba(132, 218, 92, 0.237);
+    background: rgba(132, 218, 92, 0.084);
     backdrop-filter: blur(10px);
     border-radius: 12px;
     padding: 2rem;
@@ -499,14 +521,78 @@ nav {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background: rgba(170, 241, 136, 0.34);
-    backdrop-filter: blur(10px);
+    background: rgba(223, 245, 229, 0.341);
+    backdrop-filter: blur(80px);
     border-radius: 12px;
     width: 30vw;
     padding: 2rem;
     transition: 0.5s;
     border: 2px solid var(--bordercolor);
-    overflow: auto;
+}
+
+/* make boxes a positioning context for the star */
+.education-box {
+    position: relative;
+}
+
+/* small shining star shown on hover */
+.star {
+    position: absolute;
+    /* default: top-right */
+    top: 12px;
+    right: 12px;
+    width: 12px;
+    height: 12px;
+    transform: scale(0.2) rotate(45deg);
+    opacity: 0;
+    pointer-events: none;
+    filter: drop-shadow(0 0 6px var(--star-glow));
+    transition: transform 0.35s ease, opacity 0.35s ease, filter 0.35s ease;
+}
+.star::before,
+.star::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 140%;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.95), var(--star-color));
+    transform-origin: center;
+}
+.star::before { transform: translate(-50%, -50%) rotate(0deg); }
+.star::after  { transform: translate(-50%, -50%) rotate(90deg); }
+
+.star::marker { display: none; }
+
+.star-core {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    background: radial-gradient(circle at 30% 30%, #fff, var(--star-color) 60%, rgba(255,215,90,0.12));
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* corner variants */
+.star.star-tl { left: 12px; right: auto; }
+.star.star-bl { left: 12px; right: auto; top: auto; bottom: 12px; }
+.star.star-br { right: 12px; left: auto; top: auto; bottom: 12px; }
+.star.star-large { width: 16px; height: 16px; }
+
+.education-box:hover .star {
+    opacity: 1;
+    transform: scale(1) rotate(45deg);
+    animation: twinkle 1s ease-in-out 0s 1;
+}
+
+@keyframes twinkle {
+    0% { transform: scale(0.2) rotate(0deg); opacity: 0; filter: drop-shadow(0 0 0 rgba(255,255,200,0)); }
+    30% { transform: scale(1.15) rotat  e(20deg); opacity: 1; filter: drop-shadow(0 0 10px rgba(255,255,200,0.95)); }
+    60% { transform: scale(0.95) rotate(-10deg); opacity: 0.9; }
+    100% { transform: scale(1) rotate(45deg); opacity: 1; }
 }
 
 .education-box:hover {
@@ -528,7 +614,7 @@ nav {
 }
 
 .info-about {
-    background: rgba(81, 194, 29, 0.34);
+    background: rgba(224, 247, 214, 0.162);
     backdrop-filter: blur(10px);
     border-radius: 12px;
     padding: 2rem;
@@ -539,6 +625,26 @@ nav {
     overflow: hidden;
     flex-wrap: wrap-reverse;
     flex-direction: column-reverse;
+}
+
+/* glowing border pseudo-element which animates when `.in-view` is added */
+.info-about::before {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: 18px;
+    background: conic-gradient(from 0deg, var(--info-border-start), var(--info-border-mid), var(--info-border-end), var(--info-border-start));
+    pointer-events: none;
+    filter: blur(6px);
+    opacity: 0;
+    transform: rotate(0deg);
+    z-index: -1;
+    transition: opacity 300ms ease;
+}
+
+.info-about.in-view::before {
+    opacity: 0.95;
+    animation: info-border-spin 4s linear infinite;
 }
 
 .info-about h1 {
@@ -577,6 +683,13 @@ nav {
     padding: 0.5rem 1rem;
     border-radius: 10px;
     color: var(--hobbies-text);
+}
+
+/* make hobby items clickable and contain the click star */
+.hobbies li {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
 }
 
 .hobbies li:hover {
@@ -622,19 +735,50 @@ nav {
 }
 
 .skill-box {
-    background: rgba(130, 190, 102, 0.833);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.374);
+    backdrop-filter: blur(30px);
     border: 2px solid var(--bordercolor);
     border-radius: 12px;
     width: min(100%, 400px);
     padding: 2rem;
     transition: 0.5s;
+    position: relative; /* contain click-created stars */
 }
 
 .skill-box:hover {
     box-shadow: var(--bsh-color);
+    background: rgba(70, 172, 70, 0.61);
     opacity: 1;
     translate: calc(6px);
+}
+
+/* star that appears when a skill-box is clicked */
+.click-star {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+    opacity: 0;
+    filter: drop-shadow(0 0 6px var(--star-glow));
+    z-index: 30;
+    animation: click-star-pop 850ms cubic-bezier(.2,.9,.3,1) forwards;
+}
+.click-star .star-core {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle at 30% 30%, #fff, var(--star-color) 60%);
+    border-radius: 50%;
+}
+
+@keyframes click-star-pop {
+    0% { transform: translate(-50%, -50%) scale(0.25) rotate(0deg); opacity: 1; filter: drop-shadow(0 0 0 var(--star-glow)); }
+    50% { transform: translate(-50%, -60%) scale(1.25) rotate(18deg); opacity: 1; filter: drop-shadow(0 0 10px var(--star-glow)); }
+    100% { transform: translate(-50%, -80%) scale(0.9) rotate(-10deg); opacity: 0; filter: drop-shadow(0 0 18px var(--star-glow)); }
 }
 
 #projects {
@@ -660,31 +804,94 @@ nav {
 .projects img {
     height: 200px;
     width: 200px;
-    transition: transform 0.5s ease-in; /* smooth scaling */
+    transition: transform 0.5s ease; /* smooth scaling */
     margin-bottom: 2rem;
 }
 
 .projects img:hover {
     transform: scale(1.5); /* enlarges proportionally */
-    height: 40vh;
-    width: 40vw;
-    box-shadow: var(--bsh-color);
+    box-shadow: -10px 4px 2px rgb(120, 235, 120);
     z-index: 10;
+}
+
+/* project image wrapper for hover sparkle */
+.project-img {
+    display: inline-block;
+    position: relative;
+}
+
+
+/* three stars inside project image that twinkle on hover */
+.project-img .proj-star {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    background: radial-gradient(circle at 30% 25%, #fff, var(--star-color) 55%, rgba(255,215,90,0.12));
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    filter: drop-shadow(0 0 10px var(--star-glow));
+    opacity: 0;
+    transform: scale(0.18) rotate(0deg);
+    transform-origin: center;
+    transition: transform 360ms cubic-bezier(.2,.9,.3,1), opacity 360ms ease;
+    z-index: 12;
+}
+
+.project-img .proj-star.star-rt { right: 12px; top: 10px; width: 28px; height: 28px; }
+.project-img .proj-star.star-lb { left: 10px; bottom: 12px; width: 22px; height: 22px; }
+
+.project-img:hover .proj-star {
+    opacity: 1;
+    animation: project-star-twinkle 1400ms ease-in-out infinite;
+}
+.project-img .proj-star.star-rt { animation-delay: 0s; }
+.project-img .proj-star.star-lb { animation-delay: 260ms; }
+
+@keyframes project-star-twinkle {
+    0% { opacity: 0; transform: translate(0,0) scale(0.18) rotate(0deg); filter: drop-shadow(0 0 6px var(--star-glow)); }
+    20% { opacity: 1; transform: translate(-2px,-4px) scale(1.15) rotate(12deg); filter: drop-shadow(0 0 14px var(--star-glow)); }
+    50% { opacity: 0.85; transform: translate(-4px,-6px) scale(0.95) rotate(-8deg); }
+    80% { opacity: 0.6; transform: translate(-6px,-8px) scale(1.05) rotate(6deg); }
+    100% { opacity: 0; transform: translate(-8px,-10px) scale(0.9) rotate(0deg); }
+}
+
+@keyframes project-star-glow {
+    0% { opacity: 0; transform: scale(0.6); }
+    40% { opacity: 0.9; transform: scale(1.05); }
+    100% { opacity: 0.35; transform: scale(0.9); }
+}
+
+.project-img .image { display: block; }
+.project-img:hover { filter: drop-shadow(0 8px 22px rgba(0,0,0,0.14)); }
+
+/* entrance class to restart star animations when element scrolls into view */
+.project-img.enter .proj-star {
+    opacity: 1;
+    animation: project-star-entrance 1200ms cubic-bezier(.2,.9,.3,1) forwards;
+}
+.project-img.enter .proj-star.star-rt { animation-delay: 0s; }
+.project-img.enter .proj-star.star-lb { animation-delay: 220ms; }
+
+@keyframes project-star-entrance {
+    0% { opacity: 0; transform: scale(0.18) translate(0,0) rotate(0deg); }
+    30% { opacity: 1; transform: scale(1.12) translate(-2px,-4px) rotate(12deg); }
+    60% { opacity: 0.9; transform: scale(0.95) translate(-4px,-6px) rotate(-8deg); }
+    100% { opacity: 0.6; transform: scale(1) translate(-6px,-8px) rotate(0deg); }
 }
 
 
 .info-project {
-    border: 1px solid green;
+    border: 1px solid var(--bordercolor);
     text-align: center;
     padding: 2rem;
     border-radius: 10px;
     width: 50vw;
-    color: #2a3e2b;
+    color: var(--text);
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 2rem;
-    background: #a6e179;
+    background: #eaf5e132;
+    backdrop-filter: blur(30px);
 }
 
 #contact {
@@ -726,7 +933,7 @@ nav {
     align-items: start;
     background-color: var(--form-bg);
     padding: 2rem;
-    border-radius: 10px;
+    border: 1px solid var(--bordercolor);
 }
 
 .form-container input,
@@ -735,7 +942,7 @@ nav {
     padding: 0.75rem 1rem;
     width: 30vw;
     border-radius: 8px;
-    background:rgba(176, 226, 176, 0.962);
+    background:rgba(216, 238, 216, 0.962);
     font-size: 1rem;
 }
 
@@ -781,6 +988,7 @@ footer {
 .othercontact img {
     height: 40px;
     width: 40px;
+    filter: var(--filter-img);
 }
 
 footer{
@@ -843,3 +1051,5 @@ footer{
     border-radius: 8px;
     cursor: pointer;
 }
+
+
