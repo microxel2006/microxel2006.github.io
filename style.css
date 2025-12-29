@@ -343,7 +343,7 @@ nav {
 .info-home {
     flex: 1 1 60%;
     max-width: 750px;
-    min-width: 260px;
+    min-width: 280px;
     height: auto;
     background: rgba(132, 218, 92, 0.237);
     backdrop-filter: blur(10px);
@@ -377,7 +377,7 @@ nav {
 }
 
 .animated-text {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 
 .animated-text span {
@@ -387,7 +387,7 @@ nav {
     overflow: hidden;
     white-space: nowrap;
     vertical-align: bottom;
-    font-weight: bold;
+    font-weight:400;
     color: var(--animated-text-color);
     text-shadow: var(--animated-text-shadow);
 }
