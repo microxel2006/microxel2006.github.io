@@ -342,7 +342,7 @@ nav {
 
 .info-home {
     flex: 1 1 60%;
-    max-width: 720px;
+    max-width: 750px;
     min-width: 260px;
     height: auto;
     background: rgba(132, 218, 92, 0.237);
