@@ -4,17 +4,57 @@
     text-decoration: none;
     box-sizing: border-box;
 }
-
-*,
-*::before,
-*::after {
-    transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, fill 0.35s ease;
+html {
+    scroll-behavior: smooth;
 }
 
-.disable-transitions *,
-.disable-transitions *::before,
-.disable-transitions *::after {
-    transition: none !important;
+body {
+    font-family: 'segoe ui', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+    color: var(--text);
+    background: var(--bg-color);
+}
+:root {
+    --bg-color: #e5ede5;
+    --text: #3A2E2E;
+    --header-bg: #c4edd2b1;
+    --animated-text-color: rgb(0, 0, 0);
+    --animated-text-shadow: 4px 2px rgba(60, 127, 67, 0.705);
+    --bordercolor: rgba(151, 243, 114, 0.714);
+    --about-h1: #817979;
+    --hobbies-text: rgb(35, 31, 27);
+    --contactbg: rgb(206, 248, 188);
+    --bsh-color: -5px 4px 2px rgb(147, 218, 156);
+    --a-bg: rgb(155, 240, 185);
+    --image-shadow: -30px 20px 3px #bce4ae;
+}
+.dark {
+    --bg-color: #162210;
+    --text: #EAFFDB;
+    --header-bg: #24573bb9;
+    --animated-text-color: rgb(205, 240, 192);
+    --animated-text-shadow: 5px 2px rgba(19, 36, 21, 0.705);
+    --bordercolor: rgb(74, 255, 129);
+    --about-h1: #e9f0cd;
+    --hobbies-text: rgb(8, 96, 39);
+    --contactbg: rgb(138, 187, 138);
+    --bsh-color: -4px 4px 5px rgba(0, 255, 119, 0.966);
+    --a-bg: rgb(36, 255, 113);
+    --image-shadow: -30px 20px 3px hwb(91 58% 0% / 0.966);
+}
+
+a,
+button,
+.nav-links a,
+.education-box,
+.skill-box,
+.projects img {
+  transition: 
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 @media screen and (max-width: 768px) {
@@ -98,50 +138,14 @@
     }
 }
 
-:root {
-    --bg-color: #e5ede5;
-    --text: #3A2E2E;
-    --header-bg: #c4edd2b1;
-    --animated-text-color: rgb(0, 0, 0);
-    --animated-text-shadow: 4px 2px rgba(60, 127, 67, 0.705);
-    --bordercolor: rgba(151, 243, 114, 0.714);
-    --about-h1: #817979;
-    --hobbies-text: rgb(35, 31, 27);
-    --contactbg: rgb(206, 248, 188);
-    --bsh-color: -5px 4px 2px rgb(147, 218, 156);
-    --a-bg: rgb(155, 240, 185);
-    --image-shadow: -30px 20px 3px #bce4ae;
-}
 
-.dark {
-    --bg-color: #162210;
-    --text: #EAFFDB;
-    --header-bg: #24573bb9;
-    --animated-text-color: rgb(205, 240, 192);
-    --animated-text-shadow: 5px 2px rgba(19, 36, 21, 0.705);
-    --bordercolor: rgb(74, 255, 129);
-    --about-h1: #e9f0cd;
-    --hobbies-text: rgb(8, 96, 39);
-    --contactbg: rgb(138, 187, 138);
-    --bsh-color: -4px 4px 5px rgba(0, 255, 119, 0.966);
-    --a-bg: rgb(36, 255, 113);
-    --image-shadow: -30px 20px 3px hwb(91 58% 0% / 0.966);
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: 'segoe ui', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    scroll-behavior: smooth;
-    color: var(--text);
-    background: var(--bg-color);
-}
 
 section {
     scroll-margin-top: calc(20vh - 20px);
+}
+
+main {
+    padding-top: 100px;
 }
 
 header {
@@ -155,6 +159,7 @@ header {
     z-index: 1000;
     padding: 1rem 5%;
 }
+
 
 nav {
     display: flex;
@@ -209,19 +214,18 @@ nav {
     }
 }
 
-/* HIDE hamburger by default on large screens */
 .hamburger {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    gap: 5px;
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
 }
 
 .hamburger .bar {
-    height: 3px;
-    width: 25px;
-    background-color: var(--text);
-    transition: 0.3s;
+  width: 25px;
+  height: 3px;
+  background: var(--text);
+  border-radius: 2px;
 }
 
 /* NAV LINKS DEFAULT */
@@ -233,28 +237,25 @@ nav {
 /* RESPONSIVE: Small screens */
 @media (max-width: 768px) {
 
-    /* hide nav links */
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        gap: 1.5rem;
-        width: 100%;
-        background: var(--bg-color);
-        position: absolute;
-        top: 100%;
-        left: 0;
-        padding: 1rem;
-    }
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--bg-color);
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    display: none;
+  }
 
-    /* show hamburger button */
-    .hamburger {
-        display: flex;
-    }
+  .nav-links.active {
+    display: flex;
+  }
 
-    /* when active, show nav */
-    .nav-links.active {
-        display: flex;
-    }
+  .hamburger {
+    display: flex;
+  }
 }
 
 .nav-links a {
@@ -272,9 +273,7 @@ nav {
     border-radius: 5px;
 }
 
-main {
-    padding-top: 100px;
-}
+
 
 #home {
     display: flex;
@@ -294,14 +293,11 @@ main {
 .profile {
     display: flex;
     align-items: center;
-    justify-content: center;
-    /* allow the profile area to size as a column in small screens and as a fixed column in wider layouts */
-    flex: 0 0 35%;
+    justify-content: center; flex: 0 0 35%;
     max-width: 420px;
     min-width: 220px;
 }
 
-/* make the circular frame responsive and keep aspect ratio so it fits on the same home row */
 .profile-frame {
     perspective: 1000px;
     width: 100%;
@@ -309,17 +305,17 @@ main {
     max-width: 420px;
     aspect-ratio: 1 / 1;
 }
-
 .profile-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    display: block;
-    z-index: 2;
-    cursor: pointer;
-    transition: transform 0.1s ease-out;
-    transform-style: preserve-3d;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: var(--image-shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.profile-frame img:hover {
+  transform: translateY(-8px) scale(1.02);
 }
 
 .info-home {
@@ -327,8 +323,8 @@ main {
     max-width: 720px;
     min-width: 260px;
     height: auto;
-    background: rgba(81, 194, 29, 0.34);
-    background-clip: blur(10px);
+    background: rgba(132, 218, 92, 0.237);
+    backdrop-filter: blur(10px);
     border-radius: 12px;
     padding: 2rem;
     border: 1px solid #a6e179;
@@ -342,7 +338,7 @@ main {
 
 .info-home h1 {
     margin-bottom: 1rem;
-    font-size: 2;
+    font-size: 2rem;
     font-weight: bold;
 }
 
@@ -484,7 +480,8 @@ main {
 .education-box:hover {
     box-shadow: var(--bsh-color);
     opacity: 1;
-    translate: calc(5px);
+    transform: translateX(5px);
+
 }
 
 .about-container {
