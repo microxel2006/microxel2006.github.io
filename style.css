@@ -746,8 +746,19 @@ nav {
     border-radius: 20px;
     background-color: rgb(117, 197, 117);
     border: 1px solid var(--bordercolor);
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.1s ease, backgroun 0.2s ease;
 }
-
+.form-container button:hover{
+    border:2px solid rgb(6, 50, 6);
+    translate: calc(2px);
+}
+.form-container button:active{
+    background: rgb(54, 134, 56);
+    box-shadow:var(--bsh-color);
+    transform: scale(1);
+}
 .form-container img {
     height: 20vh;
 }

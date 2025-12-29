@@ -33,14 +33,6 @@ hamburger.addEventListener("click", () => {
 });
 
 
-const contactForm = document.getElementById("contact-form");
-if (contactForm) {
-    contactForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        alert("Thank you! Your message has been received.");
-        contactForm.reset();
-    });
-}
 const img = document.querySelector('.profile-frame img');
 
 img.addEventListener('mousemove', (e) => {
@@ -66,3 +58,37 @@ img.addEventListener('mouseleave', () => {
     img.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
     img.style.boxShadow = '-30px 10px 20px rgba(166, 244, 175, 1)';
 });
+
+const contactForm = document.getElementById("contactForm");
+
+if (contactForm) {
+    contactForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const submitBtn = contactForm.querySelector("button[type='submit']");
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending...";
+
+        try {
+            const response = await fetch(contactForm.action, {
+                method: "POST",
+                body: new FormData(contactForm),
+                headers: {
+                    "Accept": "application/json"
+                }
+            });
+
+            if (response.ok) {
+                alert("Message sent successfully. Thank you!");
+                contactForm.reset();
+            } else {
+                alert("Message failed to send. Please try again.");
+            }
+        } catch (error) {
+            alert("Network error. Please check your internet connection.");
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Submit";
+        }
+    });
+}
